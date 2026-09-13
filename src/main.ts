@@ -90,10 +90,10 @@ class Game {
   canOccupy(col:number,row:number,gems:Stack=this.active.gems){
     if(col<0||col>=COLS) return false;
     for(let i=0;i<3;i++){
+      if(gems[i]==='gap') continue;
       const r=row+i;
       if(r>=ROWS) return false;
       if(r>=0 && this.board[r][col]!==null) return false;
-      if(gems[i]==='gap' && r>=0 && this.board[r][col]!==null) return false;
     }
     return true;
   }
@@ -134,9 +134,17 @@ class Game {
     this.busy=true;
     const {col,row,gems}=this.active;
     for(let i=0;i<3;i++){
+      const slot=gems[i];
+      if(slot==='gap') {
+        if(i===1){
+          const r=row+i;
+          if(r>=0&&r<ROWS) this.board[r][col]='gap';
+        }
+        continue;
+      }
       const r=row+i;
       if(r<0){this.gameOver();this.busy=false;return;}
-      this.board[r][col]=gems[i];
+      this.board[r][col]=slot;
     }
     this.chain=0;
     await this.resolveBoard();
