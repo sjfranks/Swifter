@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+    <meta name="theme-color" content="#0a0d12" />
+    <meta name="description" content="Swifter — a portrait-first falling-column match-3 puzzle game." />
+    <title>Swifter</title>
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <div><p class="eyebrow">VTECH-INSPIRED PUZZLE</p><h1>SWIFTER</h1></div>
+        <button id="pause" class="icon-button" type="button" aria-label="Pause">Ⅱ</button>
+      </header>
+
+      <section class="game-layout">
+        <div class="board-wrap">
+          <canvas id="game" aria-label="Swifter game board"></canvas>
+          <div id="overlay" class="overlay" hidden>
+            <p id="overlay-kicker" class="eyebrow">GAME OVER</p>
+            <h2 id="overlay-title">Nice run.</h2>
+            <p id="overlay-copy"></p>
+            <button id="restart" class="primary" type="button">Play again</button>
+          </div>
+        </div>
+
+        <aside class="panel">
+          <div class="stat"><span>Score</span><strong id="score">0</strong></div>
+          <div class="stat"><span>Level</span><strong id="level">1</strong></div>
+          <div class="stat"><span>Chain</span><strong id="chain">—</strong></div>
+          <div class="next-card"><span>Next</span><div id="next" class="next-stack"></div></div>
+        </aside>
+      </section>
+
+      <section class="controls" aria-label="Touch controls">
+        <button id="left" type="button" aria-label="Move left">◀</button>
+        <button id="cycle" class="cycle" type="button" aria-label="Cycle gems">↻<small>SHIFT</small></button>
+        <button id="right" type="button" aria-label="Move right">▶</button>
+        <button id="drop" class="drop" type="button" aria-label="Drop faster">▼<small>DROP</small></button>
+      </section>
+
+      <p class="help">Swipe left/right to move · tap the stack to cycle · swipe down to drop</p>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
