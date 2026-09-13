@@ -170,7 +170,7 @@ class Game {
         const [r,c]=key.split(',').map(Number);
         this.board[r][c]=null;
       }
-      this.collapseAroundGaps();
+      this.collapse();
       this.draw();
       await this.wait(140);
     }
@@ -206,20 +206,15 @@ class Game {
     return out;
   }
 
-  collapseAroundGaps(){
+  collapse(){
     for(let c=0;c<COLS;c++){
-      let segmentBottom=ROWS-1;
-      for(let r=ROWS-1;r>=-1;r--){
-        const isBoundary=r===-1||this.board[r][c]==='gap';
-        if(!isBoundary) continue;
-        const segmentTop=r+1;
-        const gems:Gem[]=[];
-        for(let rr=segmentBottom;rr>=segmentTop;rr--){
-          const cell=this.board[rr][c];
-          if(cell!==null&&cell!=='gap') gems.push(cell);
-        }
-        for(let rr=segmentBottom,i=0;rr>=segmentTop;rr--,i++) this.board[rr][c]=i<gems.length?gems[i]:null;
-        segmentBottom=r-1;
+      const cells:(Gem|Gap)[]=[];
+      for(let r=ROWS-1;r>=0;r--){
+        const cell=this.board[r][c];
+        if(cell!==null) cells.push(cell);
+      }
+      for(let r=ROWS-1,i=0;r>=0;r--,i++){
+        this.board[r][c]=i<cells.length?cells[i]:null;
       }
     }
   }
